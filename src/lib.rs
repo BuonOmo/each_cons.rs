@@ -116,4 +116,26 @@ mod tests {
 		assert_eq!(*s[1], &"baz");
 		assert!(i.next().is_none());
 	}
+
+	#[test]
+	fn three_cons() {
+		let v = vec!["foo", "bar", "baz"];
+
+		let mut i = v.iter().each_cons(3);
+
+		let s = i.next().unwrap();
+		assert_eq!(*s[0], &"foo");
+		assert_eq!(*s[1], &"bar");
+		assert_eq!(*s[2], &"baz");
+		assert!(i.next().is_none());
+	}
+
+	#[test]
+	fn more_cons_than_possible() {
+		let v = vec!["foo"];
+
+		let mut i = v.iter().each_cons(2);
+
+		assert!(i.next().is_none());
+	}
 }
