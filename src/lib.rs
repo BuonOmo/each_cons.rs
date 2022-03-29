@@ -1,5 +1,4 @@
-// TODO: get rid of peekable
-use std::{collections::VecDeque, iter::Peekable, rc::Rc};
+use std::{collections::VecDeque, rc::Rc};
 
 pub trait ConsExt: Sized + Iterator {
 	 fn each_cons(self, slice: usize) -> Cons<Self>;
@@ -12,7 +11,7 @@ pub fn each_cons<I: Iterator>(slice: usize, iter: I) -> Cons<I> {
 pub struct Cons<I: Iterator> {
 	slice: usize,
 	prevs: Option<VecDeque<Rc<I::Item>>>,
-	iter: Peekable<I>,
+	iter: I,
 }
 
 impl<I: Iterator> ConsExt for I {
@@ -22,12 +21,11 @@ impl<I: Iterator> ConsExt for I {
 }
 
 impl<I: Iterator> Cons<I> {
-	pub fn new(iter: I, slice: usize) -> Self {
-		let mut peekable = iter.peekable();
+	pub fn new(mut iter: I, slice: usize) -> Self {
 		let mut expected_prevs: VecDeque<Rc<I::Item>> = VecDeque::with_capacity(slice - 1);
 		let mut finished = true;
 		for _ in 0..(slice - 1) {
-			if let Some(val) = peekable.next() {
+			if let Some(val) = iter.next() {
 				expected_prevs.push_back(Rc::new(val));
 			} else {
 				finished = false;
@@ -35,7 +33,7 @@ impl<I: Iterator> Cons<I> {
 			}
 		}
 		let prevs = if finished { Some(expected_prevs) } else { None };
-		Self { iter: peekable , prevs, slice }
+		Self { iter , prevs, slice }
 	}
 }
 
@@ -43,7 +41,7 @@ impl<I: Iterator> Iterator for Cons<I> {
 	type Item = Vec<Rc<I::Item>>;
 
 	fn next(&mut self) -> Option<Self::Item> {
-		if let Some(prevs) = &self.prevs { // TODO: rewrite with .map, just to learn it
+		if let Some(prevs) = &self.prevs {
 			if let Some(a) = self.iter.next() {
 				let new_rc = Rc::new(a);
 				let mut rv: Vec<Rc<I::Item>> = Vec::with_capacity(self.slice);
