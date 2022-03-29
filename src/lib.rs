@@ -1,20 +1,70 @@
+//! Port of ruby's [`Enumerable#each_cons`](https://rubydoc.info/stdlib/core/Enumerable:each_cons).
+//!
+//! You can use this crate in two flavors:
+//!
+//! 1. `iter.each_cons(N)` (See [`ConsIterator`])
+//! 2. `each_cons(N, iter)` (See [`each_cons`])
+//!
+//! Both will have the same behaviour: returning a `Cons` struct that is
+//! an [`Iterator`] of `Vec<Rc<Item>>`, where `Vec` size is the given `N`
+//! and `Item` correspond to the item of the previous iterator given.
+
 use std::{collections::VecDeque, rc::Rc};
 
-pub trait ConsExt: Sized + Iterator {
+/// Add this into scope to give your iterators the `each_cons(N)` method.
+///
+/// # Example
+///
+/// ```
+/// use each_cons::ConsIterator;
+///
+/// fn main() {
+/// 	let v = vec!["foo", "bar", "baz"];
+/// 	for cons in v.iter().each_cons(2) {
+/// 		println!("{}", cons.iter().fold(
+/// 			"".to_string(),
+/// 			|acc, curr| format!("{} {}", acc, curr))
+/// 		);
+///     }
+/// }
+/// // foo bar
+/// // bar baz
+/// ```
+pub trait ConsIterator: Iterator + Sized {
 	 fn each_cons(self, slice: usize) -> Cons<Self>;
 }
 
+/// If you don't like `iter.each_cons(N)`, use this.
+///
+/// # Example
+///
+/// ```
+/// use each_cons::ConsIterator;
+///
+/// fn main() {
+/// 	let v = vec!["foo", "bar", "baz"];
+/// 	for cons in each_cons(2, v.iter()) {
+/// 		println!("{}", cons.iter().fold(
+/// 			"".to_string(),
+/// 			|acc, curr| format!("{} {}", acc, curr))
+/// 		);
+///     }
+/// }
+/// // foo bar
+/// // bar baz
+/// ```
 pub fn each_cons<I: Iterator>(slice: usize, iter: I) -> Cons<I> {
 	Cons::new(iter, slice)
 }
 
+#[doc(hidden)]
 pub struct Cons<I: Iterator> {
 	slice: usize,
 	prevs: Option<VecDeque<Rc<I::Item>>>,
 	iter: I,
 }
 
-impl<I: Iterator> ConsExt for I {
+impl<I: Iterator> ConsIterator for I {
 	fn each_cons(self, slice: usize) -> Cons<Self> {
 		Cons::new(self, slice)
 	}
@@ -70,7 +120,7 @@ impl<I: Iterator> Iterator for Cons<I> {
 
 #[cfg(test)]
 mod tests {
-	use super::{each_cons, ConsExt};
+	use super::{each_cons, ConsIterator};
 
 	#[test]
 	fn each_cons_function() {
