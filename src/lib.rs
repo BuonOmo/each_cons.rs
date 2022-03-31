@@ -37,7 +37,7 @@ pub trait ConsIterator: Iterator + Sized {
 /// # Example
 ///
 /// ```
-/// use each_cons::ConsIterator;
+/// use each_cons::each_cons;
 ///
 /// let v = vec!["foo", "bar", "baz"];
 /// for cons in each_cons(2, v.iter()) {
