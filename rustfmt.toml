@@ -1,0 +1,4 @@
+hard_tab = true
+
+[clippy]
+tabs_in_doc_comments = false

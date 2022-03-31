@@ -18,14 +18,12 @@ use std::{collections::VecDeque, rc::Rc};
 /// ```
 /// use each_cons::ConsIterator;
 ///
-/// fn main() {
-/// 	let v = vec!["foo", "bar", "baz"];
-/// 	for cons in v.iter().each_cons(2) {
-/// 		println!("{}", cons.iter().fold(
-/// 			"".to_string(),
-/// 			|acc, curr| format!("{} {}", acc, curr))
-/// 		);
-///     }
+/// let v = vec!["foo", "bar", "baz"];
+/// for cons in v.iter().each_cons(2) {
+///     println!("{}", cons.iter().fold(
+///         "".to_string(),
+///         |acc, curr| format!("{} {}", acc, curr))
+///     );
 /// }
 /// // foo bar
 /// // bar baz
@@ -41,14 +39,12 @@ pub trait ConsIterator: Iterator + Sized {
 /// ```
 /// use each_cons::ConsIterator;
 ///
-/// fn main() {
-/// 	let v = vec!["foo", "bar", "baz"];
-/// 	for cons in each_cons(2, v.iter()) {
-/// 		println!("{}", cons.iter().fold(
-/// 			"".to_string(),
-/// 			|acc, curr| format!("{} {}", acc, curr))
-/// 		);
-///     }
+/// let v = vec!["foo", "bar", "baz"];
+/// for cons in each_cons(2, v.iter()) {
+///     println!("{}", cons.iter().fold(
+///         "".to_string(),
+///         |acc, curr| format!("{} {}", acc, curr))
+///     );
 /// }
 /// // foo bar
 /// // bar baz
@@ -101,9 +97,9 @@ impl<I: Iterator> Iterator for Cons<I> {
 					if first {
 						first = false
 					} else {
-						curr.push_back(Rc::clone(&v));
+						curr.push_back(Rc::clone(v));
 					}
-					rv.push(Rc::clone(&v));
+					rv.push(Rc::clone(v));
 				}
 				rv.push(Rc::clone(&new_rc));
 				curr.push_back(new_rc);
