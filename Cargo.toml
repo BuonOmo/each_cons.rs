@@ -3,6 +3,7 @@ name = "each_cons"
 description = "Port of ruby's Enumerable#each_cons."
 authors = ["Ulysse Buonomo <buonomo.ulysse@gmail.com>"]
 homepage = "https://github.com/BuonOmo/each_cons.rs"
+license = "MIT"
 version = "0.1.0"
 edition = "2021"
 
