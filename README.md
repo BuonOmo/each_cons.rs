@@ -6,7 +6,7 @@
 [![docs.rs](https://img.shields.io/badge/docs-available-informational)](https://docs.rs/each_cons)
 
 
-![](https://buildstats.info/github/chart/BuonOmo/each_cons.rs?branch=main)
+[![Workflow history](https://buildstats.info/github/chart/BuonOmo/each_cons.rs?branch=main)](https://github.com/BuonOmo/each_cons.rs/actions?query=workflow%3A%22CI%22)
 
 A port of ruby's [`Enumerable#each_cons`](https://rubydoc.info/stdlib/core/Enumerable:each_cons).
 
