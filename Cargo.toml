@@ -1,7 +1,8 @@
 [package]
 name = "each_cons"
 description = "Port of ruby's Enumerable#each_cons."
-author = "Ulysse Buonomo <buonomo.ulysse@gmail.com>"
+authors = ["Ulysse Buonomo <buonomo.ulysse@gmail.com>"]
+homepage = "https://github.com/BuonOmo/each_cons.rs"
 version = "0.1.0"
 edition = "2021"
 
