@@ -29,7 +29,7 @@ use std::{collections::VecDeque, rc::Rc};
 /// // bar baz
 /// ```
 pub trait ConsIterator: Iterator + Sized {
-	 fn each_cons(self, slice: usize) -> Cons<Self>;
+	fn each_cons(self, slice: usize) -> Cons<Self>;
 }
 
 /// If you don't like `iter.each_cons(N)`, use this.
@@ -75,11 +75,11 @@ impl<I: Iterator> Cons<I> {
 				expected_prevs.push_back(Rc::new(val));
 			} else {
 				finished = false;
-				break
+				break;
 			}
 		}
 		let prevs = if finished { Some(expected_prevs) } else { None };
-		Self { iter , prevs, slice }
+		Self { iter, prevs, slice }
 	}
 }
 
