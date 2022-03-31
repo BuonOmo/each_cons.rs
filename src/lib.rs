@@ -1,3 +1,6 @@
+#![doc(html_playground_url = "https://play.rust-lang.org/")]
+#![doc(issue_tracker_base_url = "https://github.com/BuonOmo/each_cons.rs/issues/")]
+
 //! Port of ruby's [`Enumerable#each_cons`](https://rubydoc.info/stdlib/core/Enumerable:each_cons).
 //!
 //! You can use this crate in two flavors:
