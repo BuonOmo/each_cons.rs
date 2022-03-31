@@ -15,7 +15,7 @@ Add it to your dependencies:
 
 ```toml
 [dependencies]
-each_cons = 0.2.0
+each_cons = "0.2.0"
 ```
 
 And use it:
