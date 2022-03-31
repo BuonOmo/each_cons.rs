@@ -22,7 +22,7 @@ jobs:
           command: check
 
   test:
-    strategry:
+    strategy:
       matrix:
         os: [ubuntu, macos]
         toolchain: [stable, nightly]
