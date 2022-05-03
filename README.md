@@ -1,3 +1,6 @@
+The `windows` method already fulfill this purpose, see the discussion over
+https://www.reddit.com/r/rust/comments/ttnihr/first_crate_port_of_a_ruby_method_have_any_piece/
+
 # `each_cons.rs`
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/BuonOmo/each_cons.rs/CI)](https://github.com/BuonOmo/each_cons.rs/actions?query=workflow%3A%22CI%22)
